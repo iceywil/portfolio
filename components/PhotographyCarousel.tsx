@@ -1,11 +1,10 @@
 "use client";
 
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 interface Slide {
@@ -22,29 +21,28 @@ export function PhotographyCarousel({ slides }: PhotographyCarouselProps) {
     <Carousel
       opts={{
         align: "start",
+        loop: true,
       }}
-      className="w-full"
+      plugins={[
+        Autoplay({
+          delay: 5000,
+        }),
+      ]}
+      className="w-full h-full"
     >
-      <CarouselContent>
+      <CarouselContent className="-ml-0 h-full">
         {slides.map((slide, index) => (
-          <CarouselItem key={index} className="basis-auto">
-            <div className="p-1">
-              <div
-                className="relative bg-black rounded-lg overflow-hidden"
-                style={{ height: "100vh" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={slide.src}
-                  alt={slide.title}
-                  className="h-full w-auto object-contain"
-                />
-              </div>
+          <CarouselItem key={index} className="pl-0 h-full">
+            <div className="w-full h-full flex justify-center items-center overflow-hidden bg-black">
+              <img
+                src={slide.src}
+                alt={slide.title}
+                className="h-full w-auto object-contain"
+              />
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-
     </Carousel>
   );
 }
