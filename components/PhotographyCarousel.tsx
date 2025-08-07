@@ -7,7 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/image";
 
 interface Slide {
   title: string;
@@ -20,29 +19,32 @@ interface PhotographyCarouselProps {
 
 export function PhotographyCarousel({ slides }: PhotographyCarouselProps) {
   return (
-    <Carousel className="w-full max-w-4xl">
+    <Carousel
+      opts={{
+        align: "start",
+      }}
+      className="w-full"
+    >
       <CarouselContent>
         {slides.map((slide, index) => (
-          <CarouselItem key={index}>
+          <CarouselItem key={index} className="basis-auto">
             <div className="p-1">
-              <div className="relative aspect-video">
-                <Image
+              <div
+                className="relative bg-black rounded-lg overflow-hidden"
+                style={{ height: "100vh" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={slide.src}
                   alt={slide.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg"
+                  className="h-full w-auto object-contain"
                 />
-              </div>
-              <div className="text-center text-lg font-semibold mt-2">
-                {slide.title}
               </div>
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+
     </Carousel>
   );
 }
